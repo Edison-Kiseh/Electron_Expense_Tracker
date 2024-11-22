@@ -1,0 +1,7 @@
+{
+  "name": "ionicAndElectron",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
