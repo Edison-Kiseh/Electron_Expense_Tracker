@@ -2,7 +2,20 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'input-details',
+    loadComponent: () => import('./input-details/input-details.page').then( m => m.InputDetailsPage)
+  },
+  {
+    path: 'manage-expenses',
+    loadComponent: () => import('./manage-expenses/manage-expenses.page').then( m => m.ManageExpensesPage)
+  }
 ];

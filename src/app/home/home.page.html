@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Your expenses
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Your expenses</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div id="container">
+    <app-pie-chart></app-pie-chart>
+    <app-expense-list></app-expense-list>
+  </div>  
+</ion-content>
+
+<ion-fab horizontal="end" vertical="bottom" slot="fixed" style="bottom: 30px; right: 10px;">
+  <ion-fab-button (click)="onClickFAB()"> 
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

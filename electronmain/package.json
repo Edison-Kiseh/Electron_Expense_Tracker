@@ -1,0 +1,12 @@
+{
+  "name": "electronmain",
+  "version": "1.0.0",
+  "description": "Example to use ionic and electron",
+  "main": "index.js",
+  "scripts": {
+    "run": "ionic cap copy && electron electronmain",
+    "test": "\"test\": \"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "author": "Edi",
+  "license": "ISC"
+}

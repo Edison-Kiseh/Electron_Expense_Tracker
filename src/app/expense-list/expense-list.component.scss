@@ -1,0 +1,28 @@
+.expense-card-container {
+    margin: 10px;
+}
+  
+.expense-thumbnail {
+    width: 40px; 
+    height: 40px;
+    border-radius: 4px; 
+    margin-right: 10px; 
+}
+
+.scrollable-list {
+    max-height: 250px; 
+    overflow-y: auto; 
+}
+  
+.scrollable-list::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.scrollable-list::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 4px;
+}
+
+.scrollable-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Manage Expenses</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="expense-card-container">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Expense List Details</ion-card-title>
+      <ion-card-subtitle *ngIf="expenses.length === 0">This page displays the percentages occupied by each expense in relation to the total sum. Here you can also delete the expenses.</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="expenses.length > 0">Total expenses: ${{ totalExpenses }} -> 100%</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Scrollable container around the ion-list -->
+      <div class="scrollable-list">
+        <ion-list>
+          <ion-item *ngFor="let expense of expenses index as i">
+            <div style="display: flex; width: 100%; align-items: center; padding: 10px 0px; justify-content: space-between;">
+              <!-- First Label - 80% Width -->
+              <ion-label style="width: 70%;">
+                <h2>{{ expense.categoryName }}</h2>
+                <!-- <p>Amount spent: ${{ expense.value }}</p> -->                
+                <div class="progress-container">
+                  <div class="progress-bar" [style.width.%]="percentages[i]" [style.backgroundColor]="expense.color"></div>
+                  <div class="progress-text">{{percentages[i]}}%</div>
+                </div>  
+              </ion-label>
+ 
+              
+              <ion-button (click)="deleteField(expense)" class="icon-button" color="danger">
+                <ion-icon aria-hidden="true" name="trash-outline" class="custom-icon"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+
+          <ion-item *ngIf="expenses.length === 0" style="text-align: center; color: red;">
+              Add expenses to view these details
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>

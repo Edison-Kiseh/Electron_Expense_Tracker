@@ -1,0 +1,66 @@
+.expense-card-container {
+    margin: 10px;
+    height: 100vh; 
+}
+  
+.expense-thumbnail {
+    width: 40px; 
+    height: 40px;
+    border-radius: 4px; 
+    margin-right: 10px; 
+}
+
+
+.scrollable-list {
+    max-height: 500px; 
+    overflow-y: auto;
+}
+
+.scrollable-list::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.scrollable-list::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 4px;
+}
+
+.scrollable-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.progress-container {
+    position: relative;
+    width: 100%; 
+    background-color: #e0e0e0; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    height: 30px; 
+}
+
+.progress-bar {
+    height: 100%; 
+    border-radius: 8px; 
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: #fff;
+    pointer-events: none; 
+}
+  
+.custom-icon {
+    color: black;                
+    background-color: white;      
+    border-radius: 50%;         
+    padding: 8px;               
+}
+  
+.icon-button{
+    background-color: #e0e0e0;
+
+}

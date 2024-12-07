@@ -1,0 +1,32 @@
+<div class="expense-card-container">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Expense List</ion-card-title>
+      <ion-card-subtitle *ngIf="expenses.length > 0">Total expenses: ${{ totalExpenses }}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="expenses.length === 0">Add expenses to view them here</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Scrollable container around the ion-list -->
+      <div class="scrollable-list">
+        <ion-list>
+          <ion-item *ngFor="let expense of expenses index as i">
+            <div slot="start" class="expense-thumbnail" [style.background-color]="expense.color"></div>
+            <div style="display: flex; width: 100%; align-items: center; padding: 10px 0px;">
+              <!-- First Label - 80% Width -->
+              <ion-label style="width: 80%;">
+                <h2>{{ expense.categoryName }}</h2>
+                <p>Amount spent: ${{ expense.value }}</p>
+              </ion-label>
+              
+              <!-- Second Label - 20% Width  -->
+              <ion-label style="width: 20%; text-align: right;">
+                {{ percentages[i] }}%
+                <!-- <button (click)="deleteField(expense.categoryName)">Del</button>  -->
+              </ion-label>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>

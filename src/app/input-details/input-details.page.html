@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Add New Expense
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<form (ngSubmit)="onSubmit()" class="expense-form">
+  <ion-list class="form-list">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Expense details</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item lines="full">
+          <ion-label position="stacked">Category Name</ion-label>
+          <ion-input type="text" placeholder="Enter category name" [(ngModel)]="categoryName" name="categoryName" required></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Price</ion-label>
+          <ion-input type="number" placeholder="Enter price" [(ngModel)]="price" name="price" required></ion-input>
+        </ion-item>
+
+        <ion-label [ngStyle]="{'text-align': 'center', 'color': selectedColor || '#000', 'font-weight': 'bold', 'font-size': '18px'}">{{ selectedColorText || 'No colour selected' }}</ion-label>
+
+        <div class="button-container">
+          <ion-button expand="block" (click)="openColorPicker()" color="tertiary">
+            {{ buttonText }}
+          </ion-button>
+        </div>
+
+        <div class="button-container">
+          <ion-button expand="block" type="submit" color="primary" [disabled]="!categoryName || price === null" href="/home">
+            Submit
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</form>
