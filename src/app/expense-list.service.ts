@@ -15,8 +15,6 @@ export class ExpenseListService {
   private singleData: ExpenseModel | null = null;
   public updateList: Subject<void> = new Subject<void>();
   private sum = 0;
-  // DIRECTORY = Directory.Documents;
-  FILE_PATH = 'expenses/expenseFile.json';
 
   constructor() {
   }
@@ -110,7 +108,7 @@ export class ExpenseListService {
       //Writing the updated data back to the file
       const updatedDataString = JSON.stringify(existingData, null, 2);
       //writing the file 
-      window.api.writeFile(this.FILE_PATH, updatedDataString);
+      window.api.writeFile(updatedDataString);
   
       console.log('Data successfully appended to file');
     } catch (error) {
@@ -122,7 +120,7 @@ export class ExpenseListService {
   async ReadFileData(): Promise<void> {
     try {
       // Trigger the file read and await the result from the API
-      const readFile = await window.api.readFile('C:\\tmp\\file1.txt');
+      const readFile = await window.api.readFile();
       
       // Check if the file has content
       if (readFile) {

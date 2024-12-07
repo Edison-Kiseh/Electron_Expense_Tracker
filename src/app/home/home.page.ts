@@ -24,9 +24,14 @@ export class HomePage {
   showColorPicker: boolean = false;
   buttonText: string = 'Show color picker';
   expenseList: ExpenseModel[] = [];
+  electronVersion: String = '';
   
   constructor(private router: Router) {
     addIcons({triangle,ellipse,add});
+
+    //getting the current version of electron
+    this.electronVersion = window.api.getElectronVersion();
+    console.log("Electron version: " + this.electronVersion);
   }
 
   toggleColorPicker(): void{
@@ -46,7 +51,4 @@ export class HomePage {
     // Here, you could trigger a form or a modal for adding expenses
   }
 
-  onClickFAB() {
-    this.router.navigate(['/input-details']);
-  }
 }

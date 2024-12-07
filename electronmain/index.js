@@ -13,12 +13,13 @@ const mainWindow = new BrowserWindow({
     height: 600,
     webPreferences: {
         contextIsolation: true,
+        enableRemoteModule: false,    // Disables the remote module
         preload: path.join(__dirname, 'preload.js')
     }
 })
 
 // and load the index.html of the app.
-mainWindow.loadFile('../www/index.html') //WDA aangepast!!
+mainWindow.loadFile('../www/index.html') 
 
 // Open the DevTools.
 // mainWindow.webContents.openDevTools()
@@ -44,66 +45,36 @@ app.on('window-all-closed', () => {
 if (process.platform !== 'darwin') app.quit()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
 // Example IPC communication
-// This listener listens on channel 'do-a-thing' defined in preload.js
-ipcMain.on('put-on-clipboard', (event, arg) => {
-    clipboard.writeText('Example string', 'selection')
-    console.log(clipboard.readText('selection'))
-
-    event.reply('put-on-clipboard-reply', 'selection');
-});
-
-ipcMain.on('do-a-thing', (event, arg) => {
-console.log("Running in main process triggered from renderer");
-//example node.js api call:
-let hostname = os.hostname();
-event.reply('do-a-thing-reply', 'Hi this is main process, I am running on host: '+ hostname)
-});
-
-
 
 // Handling the 'saveText' event from the renderer
-ipcMain.on('saveText', (event, txtVal) => {
-    const directoryPath = 'C:\\tmp'; // Directory where the file will be stored
-    const filePath = path.join(directoryPath, 'file1.txt'); // File path including file name
+ipcMain.on('write-file', (event, txtVal) => {
+    const filePath = path.join(app.getPath('userData'), 'expenses.json');
 
-    // Ensure the directory exists
-    fs.mkdir(directoryPath, { recursive: true }, (dirErr) => {
-        if (dirErr) {
-            console.error(`Error ensuring directory exists at ${directoryPath}:`, dirErr);
-            event.reply('saveTextResponse', 'Error ensuring directory exists');
-            return;
+    // Check if the file exists
+    fs.access(filePath, fs.constants.F_OK, (fileErr) => {
+        if (fileErr) {
+            console.log(`File does not exist. Creating file at: ${filePath}`);
+        } else {
+            console.log(`File already exists at: ${filePath}`);
         }
 
-        // Check if the file exists
-        fs.access(filePath, fs.constants.F_OK, (fileErr) => {
-            if (fileErr) {
-                console.log(`File does not exist. Creating file at: ${filePath}`);
+        // Write the content to the file
+        fs.writeFile(filePath, txtVal, 'utf8', (writeErr) => {
+            if (!writeErr) {
+                console.log(`File written successfully to: ${filePath}`);
+                event.reply('saveTextResponse', 'File written successfully');
             } else {
-                console.log(`File already exists at: ${filePath}`);
+                console.error(`Error writing file to ${filePath}:`, writeErr);
+                event.reply('saveTextResponse', 'Error writing file');
             }
-
-            // Write the content to the file
-            fs.writeFile(filePath, txtVal, 'utf8', (writeErr) => {
-                if (!writeErr) {
-                    console.log(`File written successfully to: ${filePath}`);
-                    event.reply('saveTextResponse', 'File written successfully');
-                } else {
-                    console.error(`Error writing file to ${filePath}:`, writeErr);
-                    event.reply('saveTextResponse', 'Error writing file');
-                }
-            });
         });
     });
 });
 
 // Handling the 'readText' event from the renderer
-ipcMain.on('readText', (event) => {
-    const directoryPath = 'C:\\tmp'; // Directory where the file is stored
-    const filePath = path.join(directoryPath, 'file1.txt'); // File path including the file name
+ipcMain.on('read-file', (event) => {
+    const filePath = path.join(app.getPath('userData'), 'expenses.json');
 
     // Check if the file exists
     fs.access(filePath, fs.constants.F_OK, (fileErr) => {

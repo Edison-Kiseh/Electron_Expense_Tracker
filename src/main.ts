@@ -4,10 +4,12 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }, // Add this line
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
   ],

@@ -17,5 +17,5 @@ export const routes: Routes = [
   {
     path: 'manage-expenses',
     loadComponent: () => import('./manage-expenses/manage-expenses.page').then( m => m.ManageExpensesPage)
-  }
+  },
 ];
