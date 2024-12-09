@@ -21,5 +21,6 @@ ion-content {
   --background: #f4f4f9; 
 }
 
-
-
+#container, ion-header{
+  -webkit-user-select :none
+}

@@ -4,11 +4,33 @@
 const { app, BrowserWindow, ipcMain, clipboard } = require('electron')
 const path = require('path')
 const fs = require('fs');//filesystem
-const os = require('os')
+const os = require('os');
+
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+    app.quit();
+}
+
+// if(require('electron-squirrel-startup')) return app.quit();
+
+// setting up the icon depending on the platform that the app is running on
+let iconPath;
+if (process.platform === 'win32') {
+  iconPath = path.join(__dirname, '../www/assets/icon/icon.ico');
+} else if (process.platform === 'darwin') {
+  iconPath = path.join(__dirname, '../www/assets/icon/icon.icns');
+} else {
+  iconPath = path.join(__dirname, '../www/assets/icon/icon.png');
+}
+
+console.log("Icon Path:", iconPath);
 
 const createWindow = () => {
 // Create the browser window.
 const mainWindow = new BrowserWindow({
+    title: 'Expense Tracker',
+    icon: iconPath, // setting the icon
+    show: false,
     width: 800,
     height: 600,
     webPreferences: {
@@ -18,8 +40,14 @@ const mainWindow = new BrowserWindow({
     }
 })
 
+// avoiding the white screen
+mainWindow.webContents.on('did-finish-load', function (){
+    mainWindow.show();
+    mainWindow.focus();
+});
+
 // and load the index.html of the app.
-mainWindow.loadFile('../www/index.html') 
+mainWindow.loadFile('./www/index.html') 
 
 // Open the DevTools.
 // mainWindow.webContents.openDevTools()

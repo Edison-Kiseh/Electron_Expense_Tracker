@@ -67,3 +67,6 @@ ion-list{
     background-color: #f4f4f9;
 }
   
+.expense-form, ion-header{
+    -webkit-user-select :none
+}

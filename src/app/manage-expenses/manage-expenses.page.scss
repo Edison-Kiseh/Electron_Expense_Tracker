@@ -62,5 +62,8 @@
   
 .icon-button{
     background-color: #e0e0e0;
+}
 
+.expense-card-container, ion-header{
+    -webkit-user-select :none
 }
